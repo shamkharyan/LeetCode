@@ -1,15 +1,18 @@
 class Solution {
 public:
-    int uniquePaths(int m, int n) {
-        long long prod = 1;
+    int C(int n, int k)
+    {
+        unsigned long long res = 1;
         int j = 2;
-        for (int i = max(m, n); i <= m + n - 2; ++i)
+        for (int i = n; i > max(k, n - k); --i)
         {
-            prod *= i;
-            while (j < min(m, n) && prod % j == 0)
-                prod /= j++;
+            res *= i;
+            while (res % j == 0 && j <= min(k, n - k))
+                res /= j++;
         }
-        return prod;
-        //return fact(m + n - 2) / (fact(m - 1) * fact(n - 1));
+        return res;
+    }
+    int uniquePaths(int m, int n) {
+        return C(m + n - 2, m - 1);
     }
 };
